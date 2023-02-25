@@ -1,34 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Header } from './components/Header'
+import { Sidebar } from './components/Sidebar'
+import { Post } from './components/Post'
 
+import styles from './App.module.css'
+import './global.css'
+
+
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: 'https://github.com/edgaregidio.png',
+      name: 'Edgar Egidio',
+      role: 'Developer React'
+    },
+    content: [
+      {type: 'paragraph', content: 'Fala galeraaa!'},
+      {type: 'paragraph', content: 'Acabei de subir uma nova aplicação no meu repositorio github do curso Ignite!'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2023-02-21 15:50:00')
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: 'https://github.com/diego3g.png',
+      name: 'Diego Fernandes',
+      role: 'CTO Rocketseat'
+    },
+    content: [
+      {type: 'paragraph', content: 'Fala devs!'},
+      {type: 'paragraph', content: 'Hoje estudei bastando o ignite 2022!'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2023-03-20 10:00:00')
+  },
+  {
+    id: 3,
+    author: {
+      avatarUrl: 'https://github.com/maykbrito.png',
+      name: 'Mayke Britdo',
+      role: 'Developer JS Rocketseat'
+    },
+    content: [
+      {type: 'paragraph', content: 'Fala meu pequeno gafanhoto'},
+      {type: 'paragraph', content: 'Na vou publicar um vídeo de como fazer um bolo de cenoura com cobertura de chocolate em React, segue o link da live abaixo!'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2023-03-22 15:00:00')
+  },
+]
+
+export function App() {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+      <Header />
+      <div className={styles.wrapper}>
+        <Sidebar />
+        <main>
+          {posts.map((posts) => {
+            return (
+              <Post
+                key={posts.id}
+                author={posts.author}
+                content={posts.content}
+                publishedAt={posts.publishedAt}
+              />
+            )
+          }) }
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    </>
   )
 }
-
-export default App
